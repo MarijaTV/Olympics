@@ -1,0 +1,75 @@
+﻿@model ParticipantModel
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Athletes of Olympic 2021</h1>
+
+
+
+<p>
+    <a asp-action="Create">Create New athlete</a>
+</p>
+<form asp-action="FilterList" method="post">
+    <div class="row">
+        <div class="form-group ml-3">
+            @Html.DropDownListFor(model => model.SortFilter.filterByCountryId, new SelectList(Model.Countries, "ID", "CountryName"), "All Countries", new { @class = "form-control-sm" })
+        </div>
+        @*<div>
+            <input type="submit" name="Filter by Country" class="btn btn-sm btn-success" value="Filter" />
+        </div>*@
+        <div class="form-group ml-3">
+            @Html.DropDownListFor(model => model.SortFilter.filterBySport, new SelectList(Model.Sports, "SportsType", "SportsType"), "All Sports", new { @class = "form-control-sm" })
+        </div>
+        <div>
+            <input type="submit" name="Filter" class="btn btn-sm btn-success" value="Filter" />
+        </div>
+        
+    </div>
+</form>
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Athlete[0].LastName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Athlete[0].FirstName)
+@*@Html.DisplayNameFor(model => model.FirstName)*@
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Athlete[0].CountryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Sports[0].SportsType)
+            </th>
+            <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model.Athlete) {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.LastName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.FirstName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CountryName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Sports)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                        @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    </td>
+                </tr>
+}
+            </tbody>
+            </table>

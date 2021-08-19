@@ -1,0 +1,28 @@
+﻿@model Olympics.Models.ParticipantModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>New Athlete</h1>
+
+@using (Html.BeginForm("Create", "Athlete", FormMethod.Post))
+{
+    <div class="container-full" style="background-color: aliceblue">
+        <div class="container">
+            @Html.LabelFor(x => x.Athlete[0].LastName)
+            @Html.TextBoxFor(x => x.Athlete[0].LastName)
+            @Html.LabelFor(x => x.Athlete[0].FirstName)
+            @Html.TextBoxFor(x => x.Athlete[0].FirstName)
+            @Html.LabelFor(x => x.Countries)
+            @Html.DropDownListFor(x => x.Athlete[0].CountryId, new SelectList(Model.Countries, "ID", "CountryName"), "", new { @class = "form-control", })
+
+            @Html.DropDownListFor(x => x.Sports[0].ID, new SelectList(Model.Sports, "ID", "SportsType"), "", new { @class = "form-control", })
+
+
+            @Html.HiddenFor(x => x.Athlete[0].Id)
+            @Html.ActionLink("Cancel", "Index", "Athlete")
+            <input Type="submit" value="Save" />
+        </div>
+    </div>
+}

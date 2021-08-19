@@ -1,0 +1,49 @@
+﻿@model Olympics.Models.ParticipantModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>New Athlete</h1>
+<hr />
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="Create">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+                <div class="form-group">
+                    <label asp-for="Athlete[0].LastName" class="control-label"></label>
+                    <input asp-for="Athlete[0].LastName" class="form-control" />
+                    <span asp-validation-for="Athlete[0].LastName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Athlete[0].FirstName" class="control-label"></label>
+                    <input asp-for="Athlete[0].FirstName" class="form-control" />
+                    <span asp-validation-for="Athlete[0].FirstName" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Athlete[0].CountryName" class="control-label">Country</label>
+                    <div>
+                        @Html.DropDownListFor(model => model.Athlete[0].CountryId, new SelectList(Model.Countries, "ID", "CountryName"), new { @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Sports[0].ID" class="control-label">Sport</label>
+                    <div>
+                        @Html.DropDownListFor(model => model.sportIds, new MultiSelectList(Model.Sports, "ID", "SportsType"), new { multiple = "multiple", @class = "form-control" })
+                    </div>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <div>
+        <a asp-action="Index">Back to List</a>
+    </div>
+
+    @section Scripts {
+        @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
